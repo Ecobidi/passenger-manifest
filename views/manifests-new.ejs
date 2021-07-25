@@ -1,0 +1,74 @@
+<%- include ('partials/top') %>
+  <div class="row space">
+    <div class="col-12 d-flex justify-content-between align-items-center underline pb-2">
+      <h3 class="title">Create Passenger Manifest</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div>
+        <% if (error_msg && error_msg.length > 0) { %>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong class="text-uppercase" ><%= error_msg %></strong> 
+          </div>
+          <script>
+            $(".alert").alert();
+          </script>
+        <% } %>
+      </div>
+    </div>
+  <% if (! edit) { %>
+    <div class="col-12">
+      <form action="/manifests/new" class="row" method="POST">
+        <div class="form-group col-4">
+          <label>Select Vehicle Number</label>
+          <select name="vehicle" class="form-control" required>
+            <option></option>
+            <% vehicles.forEach(m => { %>
+            <option value='<%= m._id %>'> <%= m.vehicle_number %> </option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group col-4">
+          <label>Select Driver</label>
+          <select name="driver" class="form-control" required>
+            <option></option>
+            <% drivers.forEach(m => { %>
+            <option value='<%= m._id %>'> <%= m.fullname %> </option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group col-4">
+          <label>From</label>
+          <input type="text" class="form-control" name="from" required>
+        </div>
+        <div class="form-group col-4">
+          <label>To</label>
+          <input type="text" class="form-control" name="destination" required>
+        </div>
+        <div class="form-group col-4">
+          <label>Departure Time</label>
+          <input type="time" class="form-control" name="departure_time" required>
+        </div>
+        <div class="form-group col-4">
+          <label>Departure_date</label>
+          <input type="date" class="form-control" name="departure_date">
+        </div>
+       <div class="col-12"></div>
+        <div class="col-6 mx-auto">
+          <button type="submit" class="btn btn-primary btn-block">Add Manifest</button>
+        </div>
+      </form>
+    </div>
+  <% } %>
+  </div>
+
+</main>
+</div>
+</div> 
+
+<%- include ('partials/bottom') %>
